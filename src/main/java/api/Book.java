@@ -1,80 +1,87 @@
 package api;
 
 /**
- * Created by baseb on 1/14/2018.
+ * Created by nickwang3 on 1/14/2018.
  */
 public class Book {
 
-    public Book() {
-    }
 
-    String bookTitle;
-    String bookAuthor;
-    String bookPublisher;
-    String bookGenre;
-    int bookDatePublished;
-    int bookRating;
-    int bookIsbn;
+    private String title;
+    private String author;
+    private String publisher;
+    private String genre;
+    private int datePublished;
+    private int rating;
+    private int isbn;
 
     //Book main constructor. ONLY data required is title
     public Book(String title){
-        bookTitle = title;
+        title = title;
     }
 
 
     //Following constructors are the individual getters and setters for the book characteristics
     public void setAuthor(String author){
-        bookAuthor = author;
+        author = author;
     }
     public String getAuthor(){
-        return bookAuthor;
+        return author;
     }
 
     public void setPublisher(String publisher){
-        bookPublisher = publisher;
+        publisher = publisher;
     }
     public String getBookPublisher(){
-        return bookPublisher;
+        return publisher;
     }
 
     public void setBookGenre(String genre){
-        bookGenre = genre;
+        genre = genre;
     }
     public String getBookGenre(){
-        return bookGenre;
+        return genre;
     }
 
     public void setBookDatePublished(int datePublished){
-        bookDatePublished = datePublished
+        datePublished = datePublished
     }
     public int getBookDatePublished(){
-        return bookDatePublished;
+        return datePublished;
     }
 
     public void setBookRating(int rating){
-        bookRating = rating;
+        rating = rating;
     }
     public int getBookRating(){
-        return bookRating;
+        return rating;
     }
 
     public void setBookIsbn(int isbn){
-        bookIsbn = isbn;
+        isbn = isbn;
     }
     public int getBookIsbn(){
-        return bookIsbn;
+        return isbn;
     }
 
+
+    //toString for book class
+    @Override
+    public String toString() {
+        return "Book{" +
+                "title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", genre='" + genre + '\'' +
+                ", datePublished=" + datePublished +
+                ", rating=" + rating +
+                ", isbn=" + isbn +
+                '}';
+    }
 
     //prints ALL book characteristics
     public void printBook(){
-        System.out.println("Title:"+ bookTitle );
-        System.out.println("Author:" + bookAuthor );
-        System.out.println("Publisher:" + bookPublisher );
-        System.out.println("Genre:" + bookGenre);
-        System.out.println("Date Published" + bookDatePublished);
-        System.out.println("Rating:" + bookRating);
-        System.out.println("ISBN:" + bookIsbn);
+
+        System.out.println(this.toString())
 
     }
 
