@@ -1,0 +1,6 @@
+# Build tools
+.idea/
+.gradle/
+
+# Build
+out/
