@@ -113,7 +113,7 @@
       <option name="MAIN_CLASS_NAME"/>
       <option name="VM_PARAMETERS"/>
       <option name="PROGRAM_PARAMETERS"/>
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$"/>
+      <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$"/>
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false"/>
       <option name="ALTERNATIVE_JRE_PATH"/>
       <option name="ENABLE_SWING_INSPECTOR" value="false"/>
@@ -137,7 +137,7 @@
       <option name="TEST_OBJECT" value="class"/>
       <option name="VM_PARAMETERS"/>
       <option name="PARAMETERS"/>
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$"/>
+      <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$"/>
       <option name="ENV_VARIABLES"/>
       <option name="PASS_PARENT_ENVS" value="true"/>
       <option name="TEST_SEARCH_SCOPE">

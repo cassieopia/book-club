@@ -1,5 +1,8 @@
 package com.cwang.bookclub.api;
 
-public class Test {
+import org.immutables.value.Value;
+
+@Value.Immutable
+public interface Test {
 
 }

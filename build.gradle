@@ -40,12 +40,6 @@ allprojects {
         propertiesFile file: project.rootProject.file('gradle.properties')
     }
 
-    configurations.all {
-        resolutionStrategy {
-            failOnVersionConflict()
-        }
-    }
-
     configurations.errorprone {
         resolutionStrategy {
             force 'com.google.guava:guava:21.0'

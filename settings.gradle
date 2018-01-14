@@ -1,3 +1,5 @@
 rootProject.name = 'book-club'
 
 include 'book-club-api'
+include 'book-club-server'
+
