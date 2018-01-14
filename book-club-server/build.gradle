@@ -3,7 +3,7 @@ apply plugin: 'application'
 mainClassName = "com.cwang.bookclub.BookClubApplication"
 
 dependencies {
-    compile(":book-club-api")
+    compile project(':book-club-api')
 
     compile "io.dropwizard:dropwizard-core:1.2.2"
 
