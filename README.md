@@ -28,4 +28,16 @@ When you're ready to push you're changes, run:
 Then, open a pull request in github:
 1. Navigate to the Pull Request tab on the repository
 2. Click on the `New Pull Request` button
-3. 
+3. Select your branch for the `compare` branch
+4. Select `Create pull request` button
+5. On the right-hand side, add user `cassiewang03` as a reviewer
+6. Select `Create pull request` button
+7. Once you have an approved pull request, merge the code in!
+
+Pulling down upstream changes:
+1. Checkout `master` by running `git checkout master`
+2. Fetch and merge in changes to that branch by running `git pull`
+3. Develop!
+
+### Tips
+- You can always check the status of your branch by running `git status`
