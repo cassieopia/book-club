@@ -1,0 +1,3 @@
+dependencies {
+    compile "org.immutables:value:2.5.5"
+}

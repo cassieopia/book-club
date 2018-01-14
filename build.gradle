@@ -1,51 +1,43 @@
 buildscript {
     repositories {
-        jcenter()
-        maven { url  "http://palantir.bintray.com/releases" }
-        maven { url "https://plugins.gradle.org/m2/" }
+        mavenCentral()
+        maven {
+            url 'https://dl.bintray.com/palantir/releases/'
+        }
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
     }
 
     dependencies {
-        classpath 'com.netflix.nebula:nebula-dependency-recommender:3.6.3'
-        classpath 'gradle.plugin.com.palantir.configurationresolver:gradle-configuration-resolver-plugin:0.2.0'
-        classpath 'com.palantir.gradle.docker:gradle-docker:0.12.0'
-        classpath 'com.palantir.baseline:gradle-baseline-java:0.18.0'
-        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.4.14'
+        classpath 'gradle.plugin.com.palantir:gradle-circle-style:1.1.1'
+        classpath 'com.netflix.nebula:nebula-dependency-recommender:5.0.0'
+        classpath 'com.netflix.nebula:nebula-publishing-plugin:5.1.4'
+        classpath 'com.palantir.baseline:gradle-baseline-java:0.17.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
-        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.0.0'
+        classpath 'com.palantir.gradle.gitversion:gradle-git-version:0.7.2'
+        classpath 'com.palantir.configurationresolver:gradle-configuration-resolver-plugin:0.3.0'
+        classpath 'gradle.plugin.org.inferred:gradle-processors:1.2.15'
     }
 }
 
-plugins {
-    id 'com.palantir.git-version' version '0.5.2'
-    id 'org.inferred.processors' version '1.2.3'
-    id 'com.palantir.jacoco-full-report' version '0.3.0'
-    id 'org.unbroken-dome.test-sets' version '1.3.2'
-}
-
-repositories {
-    jcenter()
-    mavenCentral()
-    maven { url  "http://palantir.bintray.com/releases" }
-}
-
+apply plugin: 'java'
 apply plugin: 'com.palantir.baseline-config'
 apply plugin: 'com.palantir.baseline-idea'
-
-dependencies {
-    baseline "com.palantir.baseline:gradle-baseline-java-config:0.18.0@zip"
-}
+apply plugin: 'com.palantir.git-version'
+apply plugin: 'com.palantir.circle.style'
 
 allprojects {
-    apply plugin: 'nebula.dependency-recommender'
-    apply plugin: 'com.palantir.configuration-resolver'
-
-    version gitVersion()
     group 'com.cwang.book-club'
+    version gitVersion()
+
+    apply plugin: 'com.palantir.configuration-resolver'
+    apply plugin: 'nebula.dependency-recommender'
+    apply from: "${rootDir}/gradle/java.gradle"
 
     dependencyRecommendations {
         strategy OverrideTransitives
-        propertiesFile file: project.rootProject.file('version.props')
+        propertiesFile file: project.rootProject.file('gradle.properties')
     }
 
     configurations.all {
@@ -53,50 +45,53 @@ allprojects {
             failOnVersionConflict()
         }
     }
-}
 
-subprojects {
-    apply plugin: 'java'
-    apply plugin: 'jacoco'
-    apply plugin: 'com.palantir.baseline-checkstyle'
-    apply plugin: 'com.palantir.baseline-eclipse'
-    apply plugin: 'com.palantir.baseline-error-prone'
-    apply plugin: 'com.palantir.baseline-idea'
-    apply plugin: 'org.inferred.processors'
-    apply plugin: 'maven-publish'
-    apply plugin: 'com.jfrog.bintray'
+    configurations.errorprone {
+        resolutionStrategy {
+            force 'com.google.guava:guava:21.0'
+        }
+    }
+
+    configurations {
+        testArtifacts.extendsFrom testCompile
+    }
 
     repositories {
-        jcenter()
-        maven { url "http://palantir.bintray.com/releases" }
-    }
-
-    sourceCompatibility = 1.8
-
-    jacocoTestReport {
-        reports {
-            xml.enabled = true
+        mavenCentral()
+        maven {
+            url 'https://dl.bintray.com/palantir/releases/'
         }
-        // Ignore Immutables-generated code from coverage checks
-        afterEvaluate {
-            classDirectories = files(classDirectories.files.collect {
-                // Exclusion path is project-relative and has a base of compiled classes
-                fileTree(dir: it, exclude: '**/Immutable*.class')
-            })
+        maven {
+            url 'https://dl.bintray.com/marshallpierce/maven/'
         }
     }
-    tasks.jacocoTestReport.dependsOn(tasks.test)
-    tasks.check.dependsOn(tasks.jacocoTestReport)
+
+    tasks.withType(Test) {
+        testLogging {
+            showExceptions true
+            exceptionFormat "full"
+            showCauses true
+            showStackTraces true
+
+            events "started", "passed", "skipped", "failed"
+        }
+    }
+
+    tasks.withType(Javadoc) {
+        // suppress Javadoc doclint warnings in Java 8+
+        if (!System.getProperty("java.version").startsWith("1.7")) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+        }
+    }
     tasks.check.dependsOn(javadoc)
 
-    if (System.env.CIRCLECI) {
-        test.reports.junitXml.destination = new File(System.env.TESTS_DIR, it.getName())
+    if (System.env.CIRCLE_TEST_REPORTS) {
+        test.reports.junitXml.destination = new File(System.env.CIRCLE_TEST_REPORTS, it.getName())
     }
+}
 
-    compileJava {
-        options.compilerArgs += [
-                '-XepDisableWarningsInGeneratedCode',
-                '-Xep:OptionalEquality:WARN'
-        ]
-    }
+dependencies {
+    // Adds a dependency on the Baseline configuration files. Typically use
+    // the same version as the plugin itself.
+    baseline group: 'com.palantir.baseline', name: 'gradle-baseline-java-config', ext: 'zip'
 }
