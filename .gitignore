@@ -4,3 +4,7 @@
 
 # Build
 out/
+
+# Idea
+*.ipr
+*.iml
