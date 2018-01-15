@@ -41,3 +41,9 @@ Pulling down upstream changes:
 
 ### Tips
 - You can always check the status of your branch by running `git status`
+
+## The Application
+
+- `GET /` gets all books in the system
+    - test by running `curl localhost:8080`
+
