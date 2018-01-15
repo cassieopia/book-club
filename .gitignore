@@ -4,3 +4,9 @@
 
 # Build
 out/
+build/
+*/generated_src/*
+
+# Idea
+*.ipr
+*.iml
