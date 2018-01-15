@@ -5,6 +5,6 @@ package api;
  */
 public enum Genre {
 
-    SCIENCEFICTION, NONFICTION, FANTASY, COMEDY
+    SCIENCE_FICTION, NON_FICTION, FANTASY, SATIRE
 
 }
