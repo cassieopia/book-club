@@ -9,7 +9,7 @@ public class Book {
     private String title;
     private String author;
     private String publisher;
-    private String genre;
+    private Genre genre;
     private int datePublished;
     private int rating;
     private int isbn;
@@ -35,31 +35,31 @@ public class Book {
         return publisher;
     }
 
-    public void setBookGenre(String genre){
-        genre = genre;
+    public void setGenre(Genre genre){
+        this.genre = genre;
     }
-    public String getBookGenre(){
+    public Genre getGenre(){
         return genre;
     }
 
-    public void setBookDatePublished(int datePublished){
+    public void setDatePublished(int datePublished){
         datePublished = datePublished
     }
-    public int getBookDatePublished(){
+    public int getDatePublished(){
         return datePublished;
     }
 
-    public void setBookRating(int rating){
+    public void setRating(int rating){
         rating = rating;
     }
-    public int getBookRating(){
+    public int getRating(){
         return rating;
     }
 
-    public void setBookIsbn(int isbn){
+    public void setIsbn(int isbn){
         isbn = isbn;
     }
-    public int getBookIsbn(){
+    public int getIsbn(){
         return isbn;
     }
 
