@@ -1,93 +1,31 @@
-package api;
+package com.cwang.bookclub.api;
 
-/**
- * Created by nickwang3 on 1/14/2018.
- */
-public class Book {
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.immutables.value.Value;
 
+import java.util.List;
+import java.util.Optional;
 
-    private String title;
-    private String author;
-    private String publisher;
-    private String genre;
-    private int datePublished;
-    private int rating;
-    private int isbn;
+@Value.Immutable
+@JsonSerialize(as = ImmutableBook.class)
+@JsonDeserialize(as = ImmutableBook.class)
+public interface Book {
 
-    //Book main constructor. ONLY data required is title
-    public Book(String title){
-        title = title;
-    }
+    Long id();
 
+    String title();
 
-    //Following constructors are the individual getters and setters for the book characteristics
-    public void setAuthor(String author){
-        author = author;
-    }
-    public String getAuthor(){
-        return author;
-    }
+    String author();
 
-    public void setPublisher(String publisher){
-        publisher = publisher;
-    }
-    public String getBookPublisher(){
-        return publisher;
-    }
+    Optional<String> publisher();
 
-    public void setBookGenre(String genre){
-        genre = genre;
-    }
-    public String getBookGenre(){
-        return genre;
-    }
+    Optional<String> genre();
 
-    public void setBookDatePublished(int datePublished){
-        datePublished = datePublished
-    }
-    public int getBookDatePublished(){
-        return datePublished;
-    }
+    Optional<String> datePublished();
 
-    public void setBookRating(int rating){
-        rating = rating;
-    }
-    public int getBookRating(){
-        return rating;
-    }
+    int rating();
 
-    public void setBookIsbn(int isbn){
-        isbn = isbn;
-    }
-    public int getBookIsbn(){
-        return isbn;
-    }
-
-
-    //toString for book class
-    @Override
-    public String toString() {
-        return "Book{" +
-                "title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", publisher='" + publisher + '\'' +
-                ", genre='" + genre + '\'' +
-                ", datePublished=" + datePublished +
-                ", rating=" + rating +
-                ", isbn=" + isbn +
-                '}';
-    }
-
-    //prints ALL book characteristics
-    public void printBook(){
-
-        System.out.println(this.toString())
-
-    }
-
-
-    public static void main(String[] args) {
-        System.out.println("Hello, Books!");
-    }
+    List<String> isbn();
 
 }
