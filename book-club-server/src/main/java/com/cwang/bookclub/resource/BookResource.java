@@ -109,4 +109,19 @@ public class BookResource {
         return null;
     }
 
+    @Path("/info/author/{author}") //pulls list of books by inputed author
+    @GET
+    public List<Book> getAuthorBookList(@PathParam("author") String author){
+
+        ArrayList<Book> authorBookList = new ArrayList<Book>();
+
+        for(Book book : bookList){
+            if(book.author().equals(author)){
+                authorBookList.add(book);
+            }
+        }
+        return authorBookList;
+
+    }
+
 }
