@@ -11,12 +11,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.ArrayList;
+import javax.ws.rs.PathParam;
 
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
 public class BookResource {
 
-    private List<Book> bookList;
+    final private List<Book> bookList;
 
     public BookResource (){  //placehold constructor for testing other api endpoints
         this.bookList = Lists.newArrayList(
@@ -83,17 +84,17 @@ public class BookResource {
         return titleList;
     }
 
-//    @Path("/getIsbn") //returns list of isbns
-//    @GET
-//    public List<String> getIsbn() {
-//
-//        ArrayList<String> isbnList = new ArrayList<String>();
-//
-//        for(Book book : bookList){
-//            isbnList.add(book.isbn());
-//        }
-//        return isbnList;
-//    }
+    @Path("/info/{isbn}") //search books by isbn
+    @GET
+    public Book getInfo(@PathParam("isbn") List isbn) {
+
+        for(Book book : bookList){
+            if(book.isbn().equals(isbn)){
+                return book;
+            }
+        }
+        return null;
+    }
 
 
 }
