@@ -27,7 +27,7 @@ public class BookResource {
                 ImmutableBook.builder()
                         .id(1l)
                         .title("Harry Potter and the Sorcerer's Stone")
-                        .author("J.K. Rolling")
+                        .author("J.K. Rowling")
                         .rating(5)
                         .addIsbn("9788700631625")
                         .build()
