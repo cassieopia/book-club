@@ -84,9 +84,9 @@ public class BookResource {
         return titleList;
     }
 
-    @Path("/info/{isbn}") //search books by isbn
+    @Path("/info/isbn/{isbn}") //search books by isbn
     @GET
-    public Book getInfo(@PathParam("isbn") List isbn) {
+    public Book getInfoIsbn(@PathParam("isbn") List isbn) {
 
         for(Book book : bookList){
             if(book.isbn().equals(isbn)){
@@ -96,5 +96,17 @@ public class BookResource {
         return null;
     }
 
+
+    @Path("/info/title/{title}") //search books by book title
+    @GET
+    public Book getInfoTitle(@PathParam("title") String title) {
+
+        for(Book book : bookList){
+            if(book.title().equals(title)){
+                return book;
+            }
+        }
+        return null;
+    }
 
 }
