@@ -11,12 +11,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.ArrayList;
+import javax.ws.rs.PathParam;
 
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
 public class BookResource {
 
-    private List<Book> bookList;
+    final private List<Book> bookList;
 
     public BookResource (){  //placehold constructor for testing other api endpoints
         this.bookList = Lists.newArrayList(
@@ -82,18 +83,45 @@ public class BookResource {
         return titleList;
     }
 
-//    @Path("/getIsbn") //returns list of isbns
-//    @GET
-//    public List<String> getIsbn() {
-//
-//        ArrayList<String> isbnList = new ArrayList<String>();
-//
-//        for(Book book : bookList){
-//            isbnList.add(book.isbn());
-//        }
-//        return isbnList;
-//    }
+    @Path("/info/isbn/{isbn}") //search books by isbn
+    @GET
+    public Book getInfoIsbn(@PathParam("isbn") List isbn) {
 
+        for(Book book : bookList){
+            if(book.isbn().equals(isbn)){
+                return book;
+            }
+        }
+        return null;
+    }
+
+
+    @Path("/info/title/{title}") //search books by book title
+    @GET
+    public Book getInfoTitle(@PathParam("title") String title) {
+
+        for(Book book : bookList){
+            if(book.title().equals(title)){
+                return book;
+            }
+        }
+        return null;
+    }
+
+    @Path("/info/author/{author}") //pulls list of books by inputed author
+    @GET
+    public List<Book> getAuthorBookList(@PathParam("author") String author){
+
+        ArrayList<Book> authorBookList = new ArrayList<Book>();
+
+        for(Book book : bookList){
+            if(book.author().equals(author)){
+                authorBookList.add(book);
+            }
+        }
+        return authorBookList;
+
+    }
 
 }
 
