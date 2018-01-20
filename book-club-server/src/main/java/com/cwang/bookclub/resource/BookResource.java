@@ -59,7 +59,6 @@ public class BookResource {
 
     }
 
-
     @Path("/getAuthors") //returns list of authors
     @GET
     public List<String> getAuthors() {
@@ -125,3 +124,4 @@ public class BookResource {
     }
 
 }
+

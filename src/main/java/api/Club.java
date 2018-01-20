@@ -7,7 +7,8 @@ import org.immutables.value.Value;
 import java.util.List;
 import java.util.Optional;
 
-
+ * Created by nickwang3 on 1/14/2018.
+ */
 @Value.Immutable
 @JsonSerialize(as = ImmutableClub.class)
 @JsonDeserialize(as = ImmutableClub.class)
@@ -26,6 +27,5 @@ public interface Club {
     int size();
 
     Optional<List<Book>> readList();
-
 
 }
